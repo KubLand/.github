@@ -275,9 +275,9 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 **🌟 Star this repository if you find it helpful!**
 
-[![GitHub stars](https://img.shields.io/github/stars/kubland/kubland?style=social)](https://github.com/kubland/kubland)
-[![GitHub forks](https://img.shields.io/github/forks/kubland/kubland?style=social)](https://github.com/kubland/kubland)
-[![GitHub watchers](https://img.shields.io/github/watchers/kubland/kubland?style=social)](https://github.com/kubland/kubland)
+[![GitHub stars](https://img.shields.io/github/stars/kubland/homelab-bootstrap?style=social)](https://github.com/kubland/homelab-bootstrap)
+[![GitHub forks](https://img.shields.io/github/forks/kubland/homelab-bootstrap?style=social)](https://github.com/kubland/homelab-bootstrap)
+[![GitHub watchers](https://img.shields.io/github/watchers/kubland/homelab-bootstrap?style=social)](https://github.com/kubland/homelab-bootstrap)
 
 ---
 
