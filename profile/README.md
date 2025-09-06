@@ -46,15 +46,10 @@ graph TB
 
     subgraph "🔄 GitOps Flow"
         GIT[📁 Git Repository]
-        ARGO[🚀 ArgoCD]
+        ARGO[🚀 ArgoCD in Main Cluster]
         FLUX[⚡ FluxCD]
     end
 
-    subgraph "🔐 Security Layer"
-        VAULT[🔑 HashiCorp Vault]
-        FALCO[🛡️ Falco Runtime Security]
-        TRIVY[🔍 Trivy Security Scanner]
-    end
 
     GIT --> ARGO
     GIT --> FLUX
@@ -89,28 +84,27 @@ graph TB
 - **🚀 ArgoCD**: Application deployment and management
 - **⚡ FluxCD**: GitOps continuous delivery
 - **🔧 GitHub Actions**: CI/CD pipelines
-- **📋 Tekton**: Cloud-native CI/CD
 
 ### 💾 Storage & Data
 - **🗄️ Rook Ceph**: Distributed storage system
-- **📊 Longhorn**: Cloud-native distributed storage
 - **🗃️ PostgreSQL**: Database clusters
 - **📈 Prometheus**: Metrics collection
 - **📊 Grafana**: Monitoring dashboards
 
 ### 🔐 Security & Secrets
 - **🔑 HashiCorp Vault**: Secrets management
-- **🛡️ Falco**: Runtime security monitoring
 - **🔍 Trivy**: Vulnerability scanning
-- **🔒 OPA Gatekeeper**: Policy enforcement
+- **🔒 Kyverno**: Policy enforcement and admission control
+  - Validates and mutates Kubernetes resources
+  - Generates policies for security best practices
+  - Enforces compliance and governance rules
 - **🛡️ Network Policies**: Micro-segmentation
 - **🔐 Cert-Manager**: TLS certificate management
 
 ### 📊 Observability
 - **📈 Prometheus**: Metrics collection
 - **📊 Grafana**: Visualization
-- **📝 ELK Stack**: Log aggregation
-- **🔍 Jaeger**: Distributed tracing
+- **📝 Vector + Loki**: Log aggregation and processing
 - **📱 AlertManager**: Alerting
 
 ---
@@ -127,20 +121,24 @@ Our homelab follows a **bootstrap-first approach** where we start with a single 
    - Contains all necessary tools for cluster lifecycle management
 
 2. **🏭 Cluster Factory**: From the bootstrap cluster, we create:
-   - **🏢 Main Cluster**: Primary production workloads
+   - **🏢 Main Cluster**: Primary production workloads, ArgoCD, and security components (Vault, Falco, Trivy)
    - **🔄 Backup Cluster**: Disaster recovery and backup services
    - **👨‍💻 Apps-Aurelien**: Personal development environment
    - **👨‍💻 Apps-Thomas**: Personal development environment
+
+3. **🚀 ArgoCD Management**: The main cluster hosts ArgoCD which manages application deployments across all clusters
 
 ### 🎯 Key Repositories
 
 | Repository | Description | Status |
 |------------|-------------|---------|
 | 🚀 `homelab-bootstrap` | Initial cluster setup with OMI images | 🚧 Active |
-| 🏗️ `kubland-infrastructure` | Multi-cluster management and GitOps | 🚧 Active |
-| 🚀 `kubland-applications` | Application manifests and Helm charts | 🚧 Active |
-| 🔐 `kubland-security` | Security policies and configurations | 🚧 Active |
-| 📊 `kubland-monitoring` | Observability and monitoring stack | 🚧 Active |
+| 🏢 `homelab-main` | Main cluster with ArgoCD and security components | 🚧 Active |
+| 🔄 `homelab-backup` | Backup cluster for disaster recovery | 🚧 Active |
+| 👨‍💻 `homelab-apps-thomas` | Thomas personal development environment | 🚧 Active |
+| 👨‍💻 `homelab-apps-aurelien` | Aurelien personal development environment | 🚧 Active |
+
+*Note: Monitoring components (Prometheus, Grafana, Vector, Loki) are deployed in the main cluster*
 
 ---
 
@@ -154,7 +152,7 @@ Our organization implements enterprise-grade security practices:
 - **🔑 Secrets Management**: HashiCorp Vault for centralized secrets
 - **🛡️ Runtime Security**: Falco for real-time threat detection
 - **🔍 Vulnerability Scanning**: Automated scanning with Trivy
-- **📋 Policy Enforcement**: OPA Gatekeeper for admission control
+- **📋 Policy Enforcement**: Kyverno for admission control and policy management
 - **🌐 Network Segmentation**: Comprehensive network policies
 - **🔒 RBAC**: Role-based access control with least privilege
 - **📊 Security Monitoring**: Continuous security posture assessment
