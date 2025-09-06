@@ -68,7 +68,6 @@ graph TB
 
 ### 🔄 GitOps & CI/CD
 - **🚀 ArgoCD**: Application deployment and management
-- **⚡ FluxCD**: GitOps continuous delivery
 - **🔧 GitHub Actions**: CI/CD pipelines
 
 ### 💾 Storage & Data
