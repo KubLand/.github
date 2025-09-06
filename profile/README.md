@@ -30,34 +30,29 @@ Welcome to **KubLand** 🏠 - a cutting-edge homelab project that demonstrates e
 ```mermaid
 graph TB
     subgraph "🌐 Outscale Cloud"
-        subgraph "🚀 Bootstrap Cluster"
-            BC[Bootstrap RKE2 Cluster]
-            BC --> OMI[📦 OMI Image via Packer]
-            BC --> TOOLS[🔧 Cluster Management Tools]
+        subgraph "🏢 Main Cluster"
+            MAIN[🏢 Main Cluster with ArgoCD]
+            MAIN --> OMI[📦 OMI Image via Packer]
+            MAIN --> TOOLS[🔧 Cluster Management Tools]
         end
 
         subgraph "🏭 Cluster Factory"
-            BC --> MAIN[🏢 Main Cluster]
-            BC --> BACKUP[🔄 Backup Cluster]
-            BC --> AURELIEN[👨‍💻 Apps-Aurelien]
-            BC --> THOMAS[👨‍💻 Apps-Thomas]
+            MAIN --> BACKUP[🔄 Backup Cluster]
+            MAIN --> AURELIEN[👨‍💻 Apps-Aurelien]
+            MAIN --> THOMAS[👨‍💻 Apps-Thomas]
         end
     end
 
     subgraph "🔄 GitOps Flow"
         GIT[📁 Git Repository]
         ARGO[🚀 ArgoCD in Main Cluster]
-        FLUX[⚡ FluxCD]
     end
 
-
     GIT --> ARGO
-    GIT --> FLUX
     ARGO --> MAIN
     ARGO --> BACKUP
     ARGO --> AURELIEN
     ARGO --> THOMAS
-    FLUX --> BC
 
 ```
 
@@ -102,17 +97,17 @@ graph TB
 
 ## 🏗️ Cluster Architecture
 
-### 🚀 Bootstrap Process
+### 🚀 Deployment Process
 
-Our homelab follows a **bootstrap-first approach** where we start with a single cluster that creates and manages all other clusters:
+Our homelab follows a **main cluster approach** where the main cluster creates and manages all other clusters:
 
-1. **🔧 Bootstrap Cluster**: Initial RKE2 cluster created via `homelab-bootstrap` repository
+1. **🏢 Main Cluster**: Primary RKE2 cluster created via `homelab-main` repository
    - Uses OMI (Outscale Machine Image) created with Packer
-   - Serves as the management cluster for other cluster creation
-   - Contains all necessary tools for cluster lifecycle management
+   - Hosts ArgoCD for GitOps management
+   - Contains security components (Vault, Trivy, Kyverno)
+   - Deploys other clusters via RKE2
 
-2. **🏭 Cluster Factory**: From the bootstrap cluster, we create:
-   - **🏢 Main Cluster**: Primary production workloads, ArgoCD, and security components (Vault, Falco, Trivy)
+2. **🏭 Cluster Factory**: From the main cluster, we create:
    - **🔄 Backup Cluster**: Disaster recovery and backup services
    - **👨‍💻 Apps-Aurelien**: Personal development environment
    - **👨‍💻 Apps-Thomas**: Personal development environment
@@ -123,8 +118,7 @@ Our homelab follows a **bootstrap-first approach** where we start with a single 
 
 | Repository | Description | Status |
 |------------|-------------|---------|
-| 🚀 `homelab-bootstrap` | Initial cluster setup with OMI images | 🚧 Active |
-| 🏢 `homelab-main` | Main cluster with ArgoCD and security components | 🚧 Active |
+| 🏢 `homelab-main` | Main cluster with ArgoCD, security components, and cluster management | 🚧 Active |
 | 🔄 `homelab-backup` | Backup cluster for disaster recovery | 🚧 Active |
 | 👨‍💻 `homelab-apps-thomas` | Thomas personal development environment | 🚧 Active |
 | 👨‍💻 `homelab-apps-aurelien` | Aurelien personal development environment | 🚧 Active |
@@ -169,10 +163,10 @@ Our organization implements enterprise-grade security practices:
 
 ### 🏃‍♂️ Bootstrap Process
 
-1. **🔧 Clone the bootstrap repository**
+1. **🔧 Clone the main repository**
    ```bash
-   git clone https://github.com/kubland/homelab-bootstrap.git
-   cd homelab-bootstrap
+   git clone https://github.com/kubland/homelab-main.git
+   cd homelab-main
    ```
 
 2. **📦 Build OMI image with Packer**
@@ -180,7 +174,7 @@ Our organization implements enterprise-grade security practices:
    packer build rke2-omi.pkr.hcl
    ```
 
-3. **🏗️ Deploy bootstrap cluster**
+3. **🏗️ Deploy main cluster**
    ```bash
    terraform init
    terraform plan
@@ -188,8 +182,7 @@ Our organization implements enterprise-grade security practices:
    ```
 
 4. **🏭 Create additional clusters**
-   - The bootstrap cluster will manage the creation of:
-     - Main cluster (production workloads)
+   - The main cluster will manage the creation of:
      - Backup cluster (disaster recovery)
      - Apps-Aurelien (personal development)
      - Apps-Thomas (personal development)
@@ -275,9 +268,9 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 **🌟 Star this repository if you find it helpful!**
 
-[![GitHub stars](https://img.shields.io/github/stars/kubland/homelab-bootstrap?style=social)](https://github.com/kubland/homelab-bootstrap)
-[![GitHub forks](https://img.shields.io/github/forks/kubland/homelab-bootstrap?style=social)](https://github.com/kubland/homelab-bootstrap)
-[![GitHub watchers](https://img.shields.io/github/watchers/kubland/homelab-bootstrap?style=social)](https://github.com/kubland/homelab-bootstrap)
+[![GitHub stars](https://img.shields.io/github/stars/kubland/homelab-main?style=social)](https://github.com/kubland/homelab-main)
+[![GitHub forks](https://img.shields.io/github/forks/kubland/homelab-main?style=social)](https://github.com/kubland/homelab-main)
+[![GitHub watchers](https://img.shields.io/github/watchers/kubland/homelab-main?style=social)](https://github.com/kubland/homelab-main)
 
 ---
 
