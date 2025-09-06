@@ -54,8 +54,6 @@ graph TB
     ARGO --> AURELIEN
     ARGO --> THOMAS
 
-    MAIN -.-> "🏭 Cluster Factory"
-
 ```
 
 ---
