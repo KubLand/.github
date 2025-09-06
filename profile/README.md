@@ -59,15 +59,6 @@ graph TB
     ARGO --> THOMAS
     FLUX --> BC
 
-    VAULT --> MAIN
-    VAULT --> BACKUP
-    VAULT --> AURELIEN
-    VAULT --> THOMAS
-
-    FALCO --> MAIN
-    FALCO --> BACKUP
-    FALCO --> AURELIEN
-    FALCO --> THOMAS
 ```
 
 ---
