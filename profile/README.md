@@ -37,9 +37,9 @@ graph TB
         end
 
         subgraph "🏭 Cluster Factory"
-            MAIN --> BACKUP[🔄 Backup Cluster]
-            MAIN --> AURELIEN[👨‍💻 Apps-Aurelien]
-            MAIN --> THOMAS[👨‍💻 Apps-Thomas]
+            BACKUP[🔄 Backup Cluster]
+            AURELIEN[👨‍💻 Apps-Aurelien]
+            THOMAS[👨‍💻 Apps-Thomas]
         end
     end
 
