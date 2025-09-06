@@ -54,7 +54,7 @@ graph TB
     ARGO --> AURELIEN
     ARGO --> THOMAS
 
-    MAIN -.-> BACKUP
+    MAIN -.-> "🏭 Cluster Factory"
 
 ```
 
